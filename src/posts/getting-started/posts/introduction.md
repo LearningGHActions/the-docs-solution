@@ -1,28 +1,22 @@
 ---
 title: "Introduction"
-summary: "Welcome to the official documentation of Spruce Docs Elventy theme. A small template that you can use to document any of your projects."
+summary: "An small introduction to contributing to our documentation."
 eleventyNavigation:
   key: Introduction
   parent: Getting Started
   order: 1
 ---
 
-Welcome to the official documentation of **Spruce Docs** Elventy theme. A small template that you can use to document any of your projects.
+We made this guide to help you get started contributing to our documentation.
 
-## About the Template
+## Eleventy
 
-A documentation template is always helpful. There are a lot of solutions to make one; we wanted to create our self-hosted version based on our favorite static site generator.
+We are using Eleventy to generate our documentation. Eleventy is a static site generator that works with Markdown, HTML, and JavaScript. It's simple to use and easy to contribute to.
 
-By structure, it is simple, with two levels and additional custom templates like [FAQ](/faq/) and [Changelog](/changelog/).
+You can read more about Eleventy [here](https://www.11ty.dev/).
 
-## Spruce CSS
+## Markdown
 
-The template is built on [Spruce CSS](https://sprucecss.com/), a small and customizable CSS framework. The main benefit of this is that you can use the Spruce UI components with dark mode and RTL support.
+We use Markdown to write our documentation. Markdown is a lightweight markup language with plain text formatting syntax. It's easy to learn and easy to use.
 
-<img
-  data-theme-mode
-  alt="A minimalistic, low-level CSS framework"
-  src="/img/cover/sprucecss.png"
-  data-light-asset="/img/cover/sprucecss.png"
-  data-dark-asset="/img/cover/sprucecss-light.png"
-/>
+You can read more about Markdown [here](https://www.markdownguide.org/).

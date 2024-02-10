@@ -1,97 +1,73 @@
-<p>
-    <a href="https://sprucecss.com/">
-        <br>
-        <picture>
-            <source media="(prefers-color-scheme: light)" srcset="./.github/spruce-logo-dark.svg">
-            <source media="(prefers-color-scheme: dark)" srcset="./.github/spruce-logo-light.svg">
-            <img alt="Spruce CSS" width="140" src="./.github/spruce-logo-dark.svg">
-        </picture>
-        <br>
-    </a>
-</p>
+# CorpX Documentation
 
-**Welcome to the official documentation of **Spruce Docs** Elventy theme. A small template you can use to document any of your projects.**
+Welcome to CorpX documentation! Our documentation serves as a vital resource for understanding our products, services, and processes. It ensures clarity, consistency, and accessibility for both internal teams and external users. We value your contributions to keeping our documentation robust and up-to-date.
 
-<br>
+## Why Documentation Matters
 
-![The preview image of the theme.](./.github/spruce-docs-preview-mockup-2.png)
+Clear and comprehensive documentation is essential for several reasons:
 
+- **Accessibility**: It provides easy access to information for all stakeholders, including developers, designers, and end-users.
+- **Consistency**: It ensures consistency in communication, reducing confusion and errors.
+- **Onboarding**: New team members can quickly familiarize themselves with our products and processes, accelerating their onboarding process.
+- **Troubleshooting**: It serves as a reference point for troubleshooting common issues and resolving queries efficiently.
 
-[![Github release](https://img.shields.io/github/v/release/conedevelopment/sprucecss-eleventy-documentation-template?color=2350f6&logo=github&logoColor=white&style=for-the-badge)](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/releases/latest)
-[![License](https://img.shields.io/badge/license-MIT-2350f6?style=for-the-badge)](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/blob/main/LICENSE)
+## Why Eleventy (11ty)?
 
-A documentation template is always helpful. There are a lot of solutions to make one; we wanted to create our self-hosted version based on our favorite static site generator [Eleventy](https://www.11ty.dev/).
+We've chosen eleventy (11ty) as our static site generator for several reasons:
 
-By structure, it is simple, with two levels and additional custom templates like [FAQ]([/faq/](https://eleventy-documentation.sprucecss.com/faq/)) and [Changelog]([/changelog/](https://eleventy-documentation.sprucecss.com/changelog/)).
+- **Simplicity**: Eleventy offers a simple and intuitive approach to building static sites, making it easy for contributors to focus on content creation.
+- **Flexibility**: It provides the flexibility to structure content in various formats, including Markdown, HTML, and JavaScript templates.
+- **Performance**: Eleventy generates fast and lightweight static sites, ensuring optimal performance for users.
+- **Community Support**: With a growing community and active development, Eleventy is continuously improving and evolving to meet the needs of developers and content creators.
 
-## Spruce CSS
+## How to Contribute
 
-The template is built on [Spruce CSS](https://sprucecss.com/), a small and customizable CSS framework. The main benefit of this is that you can use the Spruce UI components with dark mode and RTL support.
+Contributing to our documentation is straightforward. Follow these steps to make changes:
 
-## Features
+1. **Clone the Repository**: Clone the documentation repository to your local machine.
 
-- Breadcrumb navigation built on [11ty Navigation Plugin](https://www.11ty.dev/docs/plugins/navigation/).
-- HTML minification in production mode.
-- Anchor headings.
-- Table of Content.
-- FAQ template.
-- Changelog template.
-- Static search integration with [pagefind](https://pagefind.app/).
-- Code highlighting.
-- RTL support.
-- Dark theme mode.
-- [svgIcon](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/blob/main/src/shortcodes/svg-icon.js) shortcode: render any SVG icon inline and add optional classes.
-- [markdownRenderer](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/blob/main/src/shortcodes/markdown-render.js): render any string (markdown) into HTML.
-
-## Setup
-
-1. **Clone the repository.**
-
-2. **Install the dependencies.**
-
-    In the `package.json` file, you will find all of the dependencies (and scripts) to install them using the following command:
+2. **Install Dependencies**: Navigate to the root of the project and install dependencies using npm:
 
     ```shell
     npm install
     ```
 
-3. **Run the development mode**
-
-    To run the development mode, use the `npm script`.   This script will also watch for changes.
+3. **Run Development Mode**: Start the development server and watch for changes:
 
     ```shell
     npm start
     ```
 
-4. **Run the production mode**
-
-    Before you go live, you should use the production script to compress the Sass files.
+4. **Run Production Mode**: Before deploying changes live, compress the Sass files:
 
     ```shell
     npm run prod
     ```
 
-You can find some more npm scripts in the [package.json](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/blob/main/package.json) that can be helpful.
+For additional npm scripts and details, refer to the [package.json](https://github.com/conedevelopment/sprucecss-eleventy-documentation-template/blob/main/package.json).
 
-## Content Managment
+## Content Management
 
-Adding content to the template is easy as almost everything is in Eleventy.
+Adding content to the documentation template is straightforward with Eleventy:
 
-### The Basic Structure
+### Basic Structure
 
-Our base folder for the documentation pages is the `posts` folder. You must follow the folder structure, which means the `category` here. If you create a folder, you must make a list page with the same name as the folder. You must also create another `posts` folder under the `category` folder where your posts go. You must create the `posts.json` file that will parameter your `layout` and `permalink` values.
+- The base folder for documentation pages is `posts`.
+- Follow the folder structure, including the category. Each category folder must have a list page with the same name.
+- Create another `posts` folder under each category folder for your posts.
+- Create a `posts.json` file to set layout and permalink values.
 
 ### Eleventy Navigation
 
-The theme utilizes the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/), so you must explicitly set up the hierarchy. This is needed for the automatic sidebar navigation, the navigation order, and breadcrumb generation.
+Utilize the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/) to set up hierarchy for automatic sidebar navigation, navigation order, and breadcrumb generation.
 
 ### Other Pages
 
-To create simple pages, make a file directly under the `src` folder and configure it with the available front matter.
+For simple pages, create a file directly under the `src` folder and configure it with available front matter.
 
-## Structure
+## Project Structure
 
-```html
+```plaintext
 spruecss-eleventy-documentation-template/
 ├─ node_modules/
 ├─ dist/
@@ -114,7 +90,6 @@ spruecss-eleventy-documentation-template/
 ├─ package.json
 ├─ README.md
 ├─ ...
-
 ```
 
 - **_data**: Some global data, like the name of your site and helpers like the active navigation element or current year.
@@ -127,7 +102,3 @@ spruecss-eleventy-documentation-template/
 - **scss**: The Sass files.
 - **shortcodes**: The available shortcodes.
 - **transforms**: The transformations.
-
-<br>
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b7560c95-7035-491b-8c3f-94c43bea761e/deploy-status)](https://app.netlify.com/sites/sprucecss-eleventy-documentation/deploys)

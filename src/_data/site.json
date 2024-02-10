@@ -1,13 +1,13 @@
 {
-  "authorEmail": "hello@conedevelopment.com",
-  "authorName": "Cone",
+  "authorEmail": "admin@corpx.com",
+  "authorName": "The Administrator",
   "copyright": "Some rights reserved.",
-  "name": "Spruce CSS Eleventy Documentation Template",
-  "slogen": "An Eleventy theme for documentation sites",
+  "name": "CorpX Docs",
+  "slogen": "CorpX internal documentation",
   "social": {
-    "twitter": "https://twitter.com/conedevelopment",
-    "github": "https://github.com/conedevelopment/sprucecss-eleventy-documentation-template",
+    "twitter": "",
+    "github": "",
     "discord": ""
   },
-  "url": "https://eleventy-documentation.sprucecss.com"
+  "url": ""
 }
