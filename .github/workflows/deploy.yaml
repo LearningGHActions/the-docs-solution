@@ -46,49 +46,49 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        # Fetching the full git history is not required for this job
-        # this will save us some time and disk space.
-        fetch-depth: 0
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Fetching the full git history is not required for this job
+          # this will save us some time and disk space.
+          fetch-depth: 0
 
-    # This step will guarantee that we install Node 18 which is needed for our
-    # project. This will also make sure that the environment is ready to run.
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "18"
-    
-    # Cache node_modules to speed up the workflow
-    # this will use the runner.os (ubuntu-latest) and the hash of the package-lock.json
-    # as the key to our cache. This means that if the package-lock.json changes
-    # the cache will be invalidated and the dependencies will be reinstalled.
-    # If the cache key is not found (first time running for example) the step will
-    # pass anyway.
-    #
-    # Read more: https://github.com/actions/cache
-    - name: Cache node_modules
-      uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      # This step will guarantee that we install Node 18 which is needed for our
+      # project. This will also make sure that the environment is ready to run.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      
+      # Cache node_modules to speed up the workflow
+      # this will use the runner.os (ubuntu-latest) and the hash of the package-lock.json
+      # as the key to our cache. This means that if the package-lock.json changes
+      # the cache will be invalidated and the dependencies will be reinstalled.
+      # If the cache key is not found (first time running for example) the step will
+      # pass anyway.
+      #
+      # Read more: https://github.com/actions/cache
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-    - name: Install Dependencies
-      run: npm install
-    
-    - name: Run all the linters
-      run: npm run lint:all
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run all the linters
+        run: npm run lint:all
 
-    # Run all the additional scripts that are required
-    - name: Run all the scripts
-      run: |
-        node script/url-checker.js
+      # Run all the additional scripts that are required
+      - name: Run all the scripts
+        run: |
+          node script/url-checker.js
 
-    # Normally a step to run a test suite would go here
-    # but this project doesn't have tests, so we're going to skip
-    # that step.
+      # Normally a step to run a test suite would go here
+      # but this project doesn't have tests, so we're going to skip
+      # that step.
 
   #########################
   ## Build our static site
