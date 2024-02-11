@@ -1,0 +1,157 @@
+name: "Build and deploy"
+on:
+  # Triggers the workflow on push event with conditions
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - CONTRIBUTING.md
+      - LICENSE
+  
+  # Triggers the workflow on pull request event
+  pull_request:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: "Force deploy"
+        required: true
+        default: false
+        type: boolean
+
+  # Always make sure the least amount of permissions is requested
+  # and that the requested permissions are needed
+  permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+  # Allow one deployment at a time
+  concurrency:
+    group: "pages"
+    cancel-in-progress: true
+
+jobs:
+
+  ################################
+  ## Run all the tests and linters
+  ################################
+  # This is a good place to run all the tests necessary to build confidence
+  # that the changes introduced did not break anything.
+  test:
+    runs-on: ubuntu-latest
+    
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        # Fetching the full git history is not required for this job
+        # this will save us some time and disk space.
+        fetch-depth: 0
+
+    # This step will guarantee that we install Node 18 which is needed for our
+    # project. This will also make sure that the environment is ready to run.
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18"
+    
+    # Cache node_modules to speed up the workflow
+    # this will use the runner.os (ubuntu-latest) and the hash of the package-lock.json
+    # as the key to our cache. This means that if the package-lock.json changes
+    # the cache will be invalidated and the dependencies will be reinstalled.
+    # If the cache key is not found (first time running for example) the step will
+    # pass anyway.
+    #
+    # Read more: https://github.com/actions/cache
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install Dependencies
+      run: npm install
+    
+    - name: Run all the linters
+      run: npm run lint:all
+
+    # Run all the additional scripts that are required
+    - name: Run all the scripts
+      run: |
+        node script/url-checker.js
+
+    # Normally a step to run a test suite would go here
+    # but this project doesn't have tests, so we're going to skip
+    # that step.
+
+  #########################
+  ## Build our static site
+  #########################
+  build:
+    runs-on: ubuntu-latest
+    
+    # This job will only run if the test job is successful
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      # This will build the distribution files for our site
+      # and store them in the _site/ directory.
+      - name: Build distribution files
+        run: npm run prod
+
+      # A Pages artifact must:
+      #  - be called github-pages
+      #  - be a single gzip archive containing a single tar file
+      # Read more: https://github.com/actions/upload-pages-artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site/"
+  
+  #########################
+  ## Deploy to GitHub Pages
+  #########################
+  # This is the last job of our workflow. We will use the actions/deploy-pages action
+  # to deploy our site to GitHub Pages. This action will take care of everything for us.
+  deploy:
+    environment: 
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
+    # This job will only run if the build job is successful
+    needs: build
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
