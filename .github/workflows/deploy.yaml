@@ -24,17 +24,17 @@ on:
         default: false
         type: boolean
 
-  # Always make sure the least amount of permissions is requested
-  # and that the requested permissions are needed
-  permissions:
-    contents: read
-    pages: write
-    id-token: write
+# Always make sure the least amount of permissions is requested
+# and that the requested permissions are needed
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-  # Allow one deployment at a time
-  concurrency:
-    group: "pages"
-    cancel-in-progress: true
+# Allow one deployment at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
 
