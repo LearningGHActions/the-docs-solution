@@ -31,10 +31,10 @@
  * to make sure none return a 404 error. These are markdown pages.
  * 
  * Usage:
- *  node url-checker.js -t <timeout>
+ *  node url-checker.js -t <timeout> -p <path>
  * 
  * Options:
- *  -t, --timeout <timeout>  The timeout in milliseconds for each request. Default is 5000.
+ *  -t, --timeout <timeout>  The timeout in seconds for each request. Default is 5000.
  */
 
 const fs = require('fs');
@@ -47,9 +47,11 @@ const { exit } = require('process');
 const parser = new ArgumentParser({
     description: 'URL Checker'
 });
-parser.add_argument('-t', '--timeout', { help: 'The timeout in milliseconds for each request' });
+parser.add_argument('-t', '--timeout', { help: 'The timeout in seconds for each request' });
+parser.add_argument('-d', '--directory', { help: 'The path to the posts directory' });
 const args = parser.parse_args();
-const timeout = args.timeout || 5000;
+const timeoutSeconds = args.timeout * 1000 || 5000;
+const postsDir = args.dir || __dirname + '/../src/posts';
 
 // Recusively get all the markdown files (.md) only in the posts directory
 const walkSync = (dir, filelist = []) => {
@@ -89,7 +91,7 @@ const getUrls = (filePaths) => {
 // Call each URL and if the status code is 404, print an error and exit with non 0
 const checkUrl = async (url) => {
     try {
-        const response = await axios.get(url, { timeout });
+        const response = await axios.get(url, { timeoutSeconds });
         console.log(`${response.status} - ${url}`);
     }
     catch (error) {
@@ -100,7 +102,7 @@ const checkUrl = async (url) => {
 }
 
 // Run
-const filePaths = walkSync(__dirname + '/../src/posts');
+const filePaths = walkSync(postsDir);
 const urls = getUrls(filePaths);
 urls.forEach(url => checkUrl(url));
 console.log('All URLs are valid');
