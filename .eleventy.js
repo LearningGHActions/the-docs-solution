@@ -13,6 +13,7 @@ const w3DateFilter = require('./src/filters/w3-date-filter.js');
 const parentFilter = require('./src/filters/parent-filter.js');
 const markdownRenderShortcode = require('./src/shortcodes/markdown-render.js');
 const svgIconShortcode = require('./src/shortcodes/svg-icon.js');
+const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 module.exports = config => {
   config.addFilter('dateFilter', dateFilter);
@@ -69,6 +70,6 @@ module.exports = config => {
       output: '_site'
     },
     passthroughFileCopy: true,
-    pathPrefix: './',
+    pathPrefix: "./",
   };
 };
