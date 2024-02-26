@@ -45,7 +45,10 @@ jobs:
   # that the changes introduced did not break anything.
   test:
     runs-on: ubuntu-latest
-    
+    env:
+      # Setting an environment variable with the value of a configuration variable
+      env_var: ${{ vars.ENV_CONTEXT_VAR }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -84,7 +87,7 @@ jobs:
       # Run all the additional scripts that are required
       - name: Run all the scripts
         run: |
-          node script/url-checker.js
+          node script/url-checker.js -t ${{ vars.URL_CHECKER_TIMEOUT }}
 
       # Normally a step to run a test suite would go here
       # but this project doesn't have tests, so we're going to skip
