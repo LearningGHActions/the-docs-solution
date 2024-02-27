@@ -27,6 +27,7 @@ module.exports = config => {
   config.addPlugin(eleventyNavigationPlugin);
   config.addPlugin(syntaxHighlight);
   config.addPlugin(pluginTOC);
+  config.addPlugin(EleventyHtmlBasePlugin);
 
   config.addPassthroughCopy({ './src/robots.txt': '/robots.txt' });
   config.addPassthroughCopy('./src/img/**');
@@ -61,6 +62,12 @@ module.exports = config => {
     execSync(`npx pagefind --source _site --glob \"**/*.html\"`, { encoding: 'utf-8' })
   });
 
+  // Required for eleventy to run on GitHub Pages
+  // as the site URL will be https://<username>.github.io/<repo>/index.html
+  // when deploying to Pages, set the PATH_PREFIX environment variable to your 
+  // repository name
+  const pathPrefix = process.env.PATH_PREFIX || '/';
+
   return {
     markdownTemplateEngine: 'njk',
     dataTemplateEngine: 'njk',
@@ -70,6 +77,6 @@ module.exports = config => {
       output: '_site'
     },
     passthroughFileCopy: true,
-    pathPrefix: "./",
+    pathPrefix: pathPrefix,
   };
 };

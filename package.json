@@ -6,7 +6,7 @@
   "scripts": {
     "delete:dist": "del-cli --force _site",
     "eleventy:dev": "npx eleventy --serve",
-    "eleventy:prod": "npx eleventy --output=_site --pathprefix='./the-docs-solution/'",
+    "eleventy:prod": "npx eleventy --output=_site",
     "js:lint": "npx eslint \"src/**/*.js\"",
     "js:lint:fix": "npx eslint \"src/**/*.js**\" --fix",
     "prod": "npm-run-all delete:dist eleventy:prod sass:prod",
