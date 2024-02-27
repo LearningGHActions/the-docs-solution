@@ -164,7 +164,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-    
+
       # This step will report the status of the deployment to an issue
       # in the repository. This is useful to keep track of the deployments
       - name: Report status
@@ -174,5 +174,6 @@ jobs:
 
           # Create a new issue with the deployment status
           gh issue create \
+            --repo ${{ github.repository }} \
             --title "$(date -u) - Deployment: ${{ steps.deployment.outcome }}" \
             --body "URL: ${{ steps.deployment.outputs.page_url }}"
