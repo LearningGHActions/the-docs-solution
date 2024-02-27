@@ -129,7 +129,12 @@ jobs:
       # This will build the distribution files for our site
       # and store them in the _site/ directory.
       - name: Build distribution files
-        run: npm run prod
+        run:
+          # Split the path prefix and extract the repository name
+          # ${{ github.repository }} is in the format owner/repo
+          # and we only need the repo name for the path prefix
+          PATH_PREFIX=$(echo ${{ github.repository }} | cut -d'/' -f2-)
+          npm run prod --pathprefix "/$PATH_PREFIX/"
 
       # A Pages artifact must:
       #  - be called github-pages
