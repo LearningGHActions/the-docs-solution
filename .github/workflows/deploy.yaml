@@ -168,8 +168,11 @@ jobs:
       # This step will report the status of the deployment to an issue
       # in the repository. This is useful to keep track of the deployments
       - name: Report status
-        run:
+        run: |
+          # Authenticate gh cli with the GITHUB_TOKEN
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+          # Create a new issue with the deployment status
           gh issue create \
             --title "$(date -u) - Deployment: ${{ steps.deployment.outcome }}" \
             --body "URL: ${{ steps.deployment.outputs.page_url }}"
