@@ -133,7 +133,7 @@ jobs:
           # Split the path prefix and extract the repository name
           # ${{ github.repository }} is in the format owner/repo
           # and we only need the repo name for the path prefix
-          PATH_PREFIX="$(echo '${{ github.repository }}' | cut -d'/' -f2-)"
+          PATH_PREFIX="/$(echo '${{ github.repository }}' | cut -d'/' -f2-)/"
           npm run prod
 
       # A Pages artifact must:
