@@ -2,9 +2,9 @@
     <div class="header__column">
         <a class="header__logo" href="/" aria-label="{{ site.name }}">
             <img data-theme-mode 
-            data-light-asset="{{ site.url }}/img/corpx-logo.png"
-            data-dark-asset="{{ site.url }}/img/corpx-logo-dark.png"
-            src="{{ site.url }}/img/corpx-logo.png" alt="CorpX logo" />
+            data-light-asset='{{ "/img/corpx-logo.png" | htmlBaseUrl }}'
+            data-dark-asset='{{ "/img/corpx-logo-dark.png" | htmlBaseUrl }}'
+            src="/img/corpx-logo.png" alt="CorpX logo" />
        </a>
         {% if navigation.header.length > 0 %}
             <nav class="header__navigation">
