@@ -165,6 +165,8 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
     
+      # This step will report the status of the deployment to an issue
+      # in the repository. This is useful to keep track of the deployments
       - name: Report status
         run:
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
