@@ -29,6 +29,7 @@ on:
 permissions:
   contents: read
   pages: write
+  issues: write
   id-token: write
 
 # Allow one deployment at a time
@@ -163,3 +164,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+    
+      - name: Report status
+        run:
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh issue create \
+            --title "$(date -u) - Deployment: ${{ steps.deployment.outcome }}" \
+            --body "URL: ${{ steps.deployment.outputs.page_url }}"
