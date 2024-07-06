@@ -9,7 +9,7 @@ on:
       - README.md
       - CONTRIBUTING.md
       - LICENSE
-  
+
   # Triggers the workflow on pull request event
   pull_request:
     branches:
@@ -38,7 +38,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   ################################
   ## Run all the tests and linters
   ################################
@@ -64,7 +63,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-      
+
       # Cache node_modules to speed up the workflow
       # this will use the runner.os (ubuntu-latest) and the hash of the package-lock.json
       # as the key to our cache. This means that if the package-lock.json changes
@@ -81,7 +80,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-      
+
       - name: Run all the linters
         run: npm run lint:all
 
@@ -99,7 +98,7 @@ jobs:
   #########################
   build:
     runs-on: ubuntu-latest
-    
+
     # This job will only run if the test job is successful
     needs: test
 
@@ -121,8 +120,8 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('~/.npm') }}
 
       - name: Install Dependencies
         run: npm install
@@ -145,21 +144,21 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "_site/"
-  
+
   #########################
   ## Deploy to GitHub Pages
   #########################
   # This is the last job of our workflow. We will use the actions/deploy-pages action
   # to deploy our site to GitHub Pages. This action will take care of everything for us.
   deploy:
-    environment: 
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
+
     # This job will only run if the build job is successful
     needs: build
-    
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
